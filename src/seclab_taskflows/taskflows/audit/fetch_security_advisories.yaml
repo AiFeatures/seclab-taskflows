@@ -20,7 +20,7 @@ taskflow:
       model: general_tasks
       user_prompt: |
         Fetch and store all GitHub Security Advisories (GHSAs) for the repo {{ globals.repo }}
-        with the return_results option. 
+        with the return_results option set to true. 
 
         If an error occurs during fetching, store a GHSASummary with the error message.
         Ensure the error message starts with "Error:" followed by a description of the error.
