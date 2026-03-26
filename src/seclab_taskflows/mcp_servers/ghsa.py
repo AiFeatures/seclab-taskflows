@@ -51,14 +51,14 @@ def ghsa_summary_to_dict(summary):
     }
 
 class GHSABackend:
-    def __init__(self, memcache_state_dir: str):
-        self.memcache_state_dir = memcache_state_dir
-        self.location_pattern = r"^([a-zA-Z]+)(:\d+){4}$"
-        if not Path(self.memcache_state_dir).exists():
-            db_dir = "sqlite://"
+    def __init__(self, db_dir: str):
+        # Directory in which the GHSA SQLite database file will be stored.
+        self.db_dir = db_dir
+        if not Path(self.db_dir).exists():
+            db_uri = "sqlite://"
         else:
-            db_dir = f"sqlite:///{self.memcache_state_dir}/ghsa.db"
-        self.engine = create_engine(db_dir, echo=False)
+            db_uri = f"sqlite:///{self.db_dir}/ghsa.db"
+        self.engine = create_engine(db_uri, echo=False)
         Base.metadata.create_all(
             self.engine,
             tables=[
@@ -162,13 +162,13 @@ backend = GHSABackend(MEMORY)
 def parse_advisory(advisory: dict) -> dict:
     logging.debug(f"advisory: {advisory}")
     return {
-        "ghsa_id": advisory.get("ghsa_id", ""),
-        "cve_id": advisory.get("cve_id", ""),
-        "summary": advisory.get("summary", ""),
-        "description": advisory.get("description", ""),
-        "severity": advisory.get("severity", ""),
-        "published_at": advisory.get("published_at", ""),
-        "state": advisory.get("state", ""),
+        "ghsa_id": advisory.get("ghsa_id") or "",
+        "cve_id": advisory.get("cve_id") or "",
+        "summary": advisory.get("summary") or "",
+        "description": advisory.get("description") or "",
+        "severity": advisory.get("severity") or "",
+        "published_at": advisory.get("published_at") or "",
+        "state": advisory.get("state") or "",
     }
 
 
