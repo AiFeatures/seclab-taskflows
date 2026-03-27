@@ -129,7 +129,7 @@ class GHSABackend:
                 existing.high_severity_count = high_severity_count
                 existing.medium_severity_count = medium_severity_count
                 existing.low_severity_count = low_severity_count
-                existing.summary_notes = (existing.summary_notes or "") + (summary_notes or "")
+                existing.summary_notes = summary_notes
             else:
                 new_summary = GHSASummary(
                     repo=repo,
