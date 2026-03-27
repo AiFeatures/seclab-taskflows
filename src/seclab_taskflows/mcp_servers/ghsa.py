@@ -296,12 +296,12 @@ def store_new_ghsa_summary(
 
 
 @mcp.tool()
-def add_ghsa_summary_notes(
+def update_ghsa_summary_notes(
     owner: str = Field(description="The owner of the GitHub repository"),
     repo: str = Field(description="The name of the GitHub repository"),
     summary_notes: str = Field(description="New notes for the advisory summary", default=""),
 ):
-    """Append notes to the GHSA summary for a repository."""
+    """Update summary notes for the GHSA summary for a repository."""
     repo_name = process_repo(owner, repo)
     existing = backend.get_ghsa_summary(repo_name)
     if not existing:
