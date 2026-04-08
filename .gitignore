@@ -1,6 +1,46 @@
-*.log
+# =============================================================================
+# Cross-language / cross-platform ignore rules
+# =============================================================================
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor / IDE temp files
+*.bak
+*.swp
+*.swo
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Node / JS / TS
+node_modules/
+.next/
+.nuxt/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# Generic build / coverage artifacts
+coverage/
+
+# Environment files (broad glob)
+.env*
+!.env.example
+
+# Direnv
 .direnv
 .envrc
+
+# =============================================================================
+# Python-specific (from github/gitignore)
+# =============================================================================
+
+*.log
 
 # https://github.com/github/gitignore/blob/main/Python.gitignore
 # Byte-compiled / optimized / DLL files
@@ -133,9 +173,8 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 
-# Environments
-.env
-.venv
+# Environments (`.env*` covered by cross-language section above)
+.venv/
 env/
 venv/
 ENV/
