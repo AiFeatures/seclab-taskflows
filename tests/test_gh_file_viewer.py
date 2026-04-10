@@ -14,7 +14,7 @@ import seclab_taskflows.mcp_servers.gh_file_viewer as gfv_mod
 
 
 # ---------------------------------------------------------------------------
-# Helpers
+# Mock Contents for GitHub API responses
 # ---------------------------------------------------------------------------
 
 SAMPLE_FILE_CONTENT = """\
@@ -22,7 +22,7 @@ import os
 import sys
 
 def main():
-    print("hello world")
+    print("Setec Astronomy")
 
 if __name__ == "__main__":
     main()
@@ -64,7 +64,7 @@ class TestFetchFileFromGh:
         with patch.object(gfv_mod, "call_api", new_callable=AsyncMock, return_value=resp):
             result = await gfv_mod.fetch_file_from_gh.fn(owner="Owner", repo="Repo", path="src/main.py")
             assert "1: import os" in result
-            assert "5:     print" in result
+            assert "5:     print(\"Setec Astronomy\")" in result
 
     @pytest.mark.asyncio
     async def test_fetch_file_lowercases_owner_repo(self):
