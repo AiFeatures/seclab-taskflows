@@ -1,0 +1,19 @@
+name: GHCR Cleanup
+
+on:
+  schedule:
+    - cron: "0 3 * * 0"
+  workflow_dispatch:
+
+permissions:
+  packages: write
+
+jobs:
+  cleanup:
+    uses: Ai-road-4-You/enterprise-ci-cd/.github/workflows/ghcr-cleanup.yml@main
+    with:
+      keep-latest-tagged: 2
+      retention-days: 30
+      keep-latest: 10
+      delete-old-tagged: true
+    secrets: inherit
