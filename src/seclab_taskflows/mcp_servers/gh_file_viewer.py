@@ -9,6 +9,7 @@ import json
 import os
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped
 from sqlalchemy import create_engine
+import sqlalchemy.exc
 from sqlalchemy.orm import Session
 from typing import Optional
 from pathlib import Path
@@ -56,8 +57,8 @@ engine = create_engine(f"sqlite:///{os.path.abspath(SEARCH_RESULT_DIR)}/search_r
 
 try:
     Base.metadata.create_all(engine, tables=[SearchResults.__table__])
-except Exception as e:
-    logging.exception(f"Database already exists") # only log here, as this error likely only happens in test 
+except sqlalchemy.exc.OperationalError as e:
+    logging.exception(f"Database/Tables already exist(s)") # only log here, as this error likely only happens in test 
 
 
 async def call_api(url: str, params: dict) -> str:
